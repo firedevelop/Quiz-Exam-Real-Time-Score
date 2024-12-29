@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 </head>
+
 <body>
     <h1>Quiz: FP Formación Orientación Laboral</h1>
-     <div id="controls">
-         <div id="filter-buttons">
+    <div id="controls">
+        <div id="filter-buttons">
             <button id="filter-correct">✔️Correct <span id="correct-count"></span></button>
             <button id="filter-incorrect">❌Incorrect <span id="incorrect-count"></span></button>
             <button id="filter-empty">⚪Empty <span id="empty-count"></span></button>
-           <button id="filter-all">🌐All <span id="all-count"></span></button>
+            <button id="filter-all">🌐All <span id="all-count"></span></button>
         </div>
-         <div>
+        <div>
             <p>Explanations: </p>
             <input type="checkbox" id="show-explanations">
             <label for="show-explanations">if incorrect</label>
         </div>
-         <div>
+        <div>
             <input type="checkbox" id="always-show-explanations">
-             <label for="always-show-explanations">always</label>
-         </div>
-         <div>
-            <button id="check-corrects">Corrects</button>
-             <button id="check-corrects-simply">Corrects Simply</button>
+            <label for="always-show-explanations">always</label>
         </div>
-     </div>
+        <div class="icon-buttons">
+            <button id="check-corrects">
+                <span class="material-symbols-outlined">tv_options_edit_channels</span>
+                <span>All Corrects</span>
+            </button>
+            <button id="check-corrects-simply">
+                <span class="material-symbols-outlined">list_alt_check</span>
+                <span>All Corrects only</span>
+            </button>
+        </div>
+    </div>
     <div id="quiz-container"></div>
     <button id="submit-quiz">Submit Quiz</button>
     <div id="result"></div>
     <script src="js/script.js" type="module"></script>
 </body>
+
 </html>
