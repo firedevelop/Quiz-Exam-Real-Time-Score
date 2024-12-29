@@ -7,22 +7,31 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h6>Orientación Laboral</h6>
+    <h1>Quiz: Formación Orientación Laboral</h1>
      <div id="controls">
-         <div id="score-display"></div>
+         <div id="filter-buttons">
+            <button id="filter-correct">✔️Correct <span id="correct-count"></span></button>
+            <button id="filter-incorrect">❌Incorrect <span id="incorrect-count"></span></button>
+            <button id="filter-empty">⚪Empty <span id="empty-count"></span></button>
+           <button id="filter-all">🌐All <span id="all-count"></span></button>
+        </div>
          <div>
-            Explanations: <input type="checkbox" id="show-explanations" >
-            <label for="show-explanations">Only if incorrect</label>
-           </div>
-          <div>
-            <input type="checkbox" id="always-show-explanations" >
-             <label for="always-show-explanations">Always</label>
-          </div>
+            <p>Explanations: </p>
+            <input type="checkbox" id="show-explanations">
+            <label for="show-explanations">if incorrect</label>
+        </div>
+         <div>
+            <input type="checkbox" id="always-show-explanations">
+             <label for="always-show-explanations">always</label>
+         </div>
+         <div>
+            <button id="check-corrects">Corrects</button>
+             <button id="check-corrects-simply">Corrects Simply</button>
+        </div>
      </div>
     <div id="quiz-container"></div>
     <button id="submit-quiz">Submit Quiz</button>
     <div id="result"></div>
-
     <script src="js/script.js" type="module"></script>
 </body>
 </html>
