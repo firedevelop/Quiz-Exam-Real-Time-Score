@@ -173,23 +173,25 @@ function filterQuestions(filterType) {
         }
     });
 }
-
 function checkAllCorrectAnswers(simply) {
     const allQuestionDivs = document.querySelectorAll('#quiz-container > div');
     allQuestionDivs.forEach((questionDiv, index) => {
-        const optionsDiv = questionDiv.querySelector('.options');
-        optionsDiv.querySelectorAll('input').forEach(input => {
-            if (parseInt(input.value) === questions[index].answer) {
-                input.checked = true;
-                  checkAnswer(index,parseInt(input.value))
-            } else if (simply) {
-                input.closest('div').style.display = 'none';
-            } else {
-                input.closest('div').style.display = 'block';
-            }
-        });
-    });
+          const optionsDiv = questionDiv.querySelector('.options');
+          const correctInput = optionsDiv.querySelector(`input[name="question-${index}"][value="${questions[index].answer}"]`);
+
+          if(correctInput){
+            correctInput.click();
+
+          }
+
+         if (simply) {
+             optionsDiv.querySelectorAll(`input:not([value="${questions[index].answer}"])`).forEach(input => input.closest('div').style.display = 'none');
+        } else {
+             optionsDiv.querySelectorAll('input').forEach(input => input.closest('div').style.display = 'block');
+       }
+     });
 }
+
 
 
 function showResults() {
