@@ -344,7 +344,7 @@ export const questions = [
     {
          question: "58. PREGUNTA: Dentro de los daños que suelen producirse para la salud de los trabajadores, ¿cuáles incluyen irritabilidad, taquicardia, hipotermia, deshidratación, hepatitis, rabia, tuberculosis, infecciones, lesiones oculares, sordera, dermatitis...?",
          options: ["Circunstancias personales.", "Características generales o estructurales.", "Condiciones psicofísicas y psicosociales.", "Condiciones medioambientales."],
-         answer: 2,
+         answer: 3,
          explanation: "**[Respuesta - Página 152]** *Condiciones medioambientales: irritabilidad, taquicardia, hipo-termia, deshidratación, hepatitis, rabia, tuberculosis, infecciones, lesiones oculares, sordera, dermatitis...*"
     },
      {
