@@ -34,8 +34,8 @@ export const questions = [
       "Sentencia CASE.",
       "Todas las anteriores.",
     ],
-    answer: 3,
-    explanation: "**[Respuesta]** Todas las anteriores.",
+    answer: 2,
+    explanation: "",
   },
   {
     question:
