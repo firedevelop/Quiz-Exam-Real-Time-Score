@@ -12,8 +12,16 @@
 </head>
 
 <body>
-    <h5>Quiz FP: <a href="index.html">Formación Orientación Laboral</a>  | <a href="index-bases-de-datos-b.html">Bases de datos B</a></h5>
     <div id="controls">
+        <div>
+            <label for="subject-select">Select Subject:</label>
+            <select id="subject-select">
+                <option value="questions">Formación Orientación Laboral</option>
+                <option value="questions-bases-de-datos-b">Bases de datos B</option>
+                <option value="questions-programacion-b">Programación B</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
         <div id="filter-buttons">
             <button id="filter-correct">✔️Correct <span id="correct-count"></span></button>
             <button id="filter-incorrect">❌Incorrect <span id="incorrect-count"></span></button>
