@@ -13,16 +13,20 @@
 
 <body>
     <div id="controls">
+        
         <div>
-            <label for="subject-select">Select Subject:</label>
+            <label for="subject-select"><h2><span class="material-symbols-outlined">
+                list_alt_check
+                </span>QuizExam </h2></label>
             <select id="subject-select">
                 <option value="questions">Java</option>
                 <option value="questions-javascript">Javascript</option>
                 <option value="questions-react">React</option>
-                <option value="questions">Formación Orientación Laboral</option>
-                <option value="questions-bases-de-datos-b">Bases de datos B</option>
-                <option value="questions-programacion-b">Programación B</option>
-                <option value="questions-entornos-de-desarrollo">Entornos de desarrollo</option>
+                <option value="questions-formacion-y-orientacion-laboral">(encrypted) Formación Orientación Laboral</option>
+
+                <option value="questions-bases-de-datos-b">(encrypted) Bases de datos B</option>
+                <option value="questions-programacion-b">(encrypted) Programación B</option>
+                <option value="questions-entornos-de-desarrollo">(encrypted) Entornos de desarrollo</option>
                 <!-- Add more options as needed -->
             </select>
         </div>
@@ -56,6 +60,17 @@
     <button id="submit-quiz">Submit Quiz</button>
     <div id="result"></div>
     <script src="js/script.js" type="module"></script>
+
+    <footer style="text-align: center; padding: 10px; font-size: 0.8em;">
+        Made with <span class="material-symbols-outlined" style="color: red; vertical-align:middle; margin-bottom:3px; font-size:18px;">favorite</span> by
+        <a href="https://firedevelop.com" style="color: #007bff; text-decoration: underline;">fireDevelop.com</a>
+         | license MIT | ©
+        <span id="copyright-year"></span>
+        | <a href="https://github.com/firedevelop/Quiz-Exam-Real-Time-Score.git" style="color: #007bff; text-decoration: underline;">GitHub repository</a>
+    </footer>
+    <script>
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 
 </html>
