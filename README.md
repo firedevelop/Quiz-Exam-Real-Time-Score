@@ -1,8 +1,8 @@
-![Image Alt text](/images/00.jpg)
+![Image Alt text](/images/00.png)
 ## Real time result score
-![Image Alt text](/images/01.jpg)
+![Image Alt text](/images/01.png)
 # add your custom quiz exam
-![Image Alt text](/images/02.jpg)
+![Image Alt text](/images/02.png)
 
 # Quiz Exam Real Time Score
 Quiz Exam preparation. Allow some text explanation to help. Green green or red color if correct/wrong answer in a realtime js before submit form. Keep the Score in realtime.
