@@ -10,8 +10,8 @@ body {
 h2 {
     font-size: 1.5em;
     font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(to right, #3a21f3,
-            #2508ff, #8423cf, #b044ee);
+    background: linear-gradient(to right, #007bff,
+            #007bff, #8423cf, #b044ee);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
