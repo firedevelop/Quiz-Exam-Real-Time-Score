@@ -4,6 +4,11 @@
 # add your custom quiz exam
 ![Image Alt text](/images/02.png)
 
+# See live the project
+- OnLine: https://quiz-exam-real-time-score.netlify.app/
+- OnLine: you can use [nextifly](https://www.netlify.com/)
+- Localhost: install the Go Live extension in your visual Studio Code, and you will see running on your local machine under url like: https://localhost:5501
+
 # Quiz Exam Real Time Score
 Quiz Exam preparation. Allow some text explanation to help. Green green or red color if correct/wrong answer in a realtime js before submit form. Keep the Score in realtime.
 
