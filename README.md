@@ -30,6 +30,9 @@ https://gpg4win.org/
 ### GPG Encrypt some exam
 gpg --symmetric --cipher-algo AES256 my_name_file.js
 
+Example:
+gpg --symmetric --cipher-algo AES256 questions-bases-de-datos-b.js
+
 ### GPG password 
 save your password in your keepass. The output file will be like:
 my_name_file.js.gpg
