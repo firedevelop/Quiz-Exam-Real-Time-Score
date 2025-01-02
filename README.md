@@ -5,7 +5,8 @@
 ![Image Alt text](/images/02.png)
 
 # See live the project
-- OnLine: you can use nextifly
+- OnLine: https://quiz-exam-real-time-score.netlify.app/
+- OnLine: you can use [nextifly](https://www.netlify.com/)
 - Localhost: install the Go Live extension in your visual Studio Code, and you will see running on your local machine under url like: https://localhost:5501
 
 # Quiz Exam Real Time Score
