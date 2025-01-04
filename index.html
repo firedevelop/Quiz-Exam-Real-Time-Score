@@ -55,8 +55,12 @@
 
         <div id="timestamp-filter">
             <select id="timestamp-select"></select>
-            <button id="filter-timestamp">Filter by Timestamp</button>
-            <button id="filter-all-incorrect" title="Shows all incorrect answers">All Incorrect
+            <button id="filter-timestamp" title="Shows all incorrect answers filter by TimeStamp">
+                <span class="material-symbols-outlined">filter_alt</span>
+                <span class="material-symbols-outlined">schedule</span>
+            </button>
+            <button id="filter-all-incorrect" title="Shows all incorrect answers of all TimeStamp">
+                <span class="material-symbols-outlined">filter_alt</span><span class="material-symbols-outlined">history</span>
             </button>
             <button id="check-corrects" title="Shows all correct answers">
                 <span class="material-symbols-outlined">tv_options_edit_channels</span>
@@ -64,8 +68,9 @@
             <button id="check-corrects-simply" title="Shows all correct answers and hide other options">
                 <span class="material-symbols-outlined">list_alt_check</span>
             </button>
-            <button id="submit-quiz">Submit Quiz</button>
-            <button id="clean-filestore">Clean FileStore</button>
+            <button id="submit-quiz" title="Submit Quiz">
+                <span class="material-symbols-outlined">send</span></button>
+            <button id="clean-filestore" title="Clean all quiz timeStamp saved on FileStore"><span class="material-symbols-outlined">auto_delete</span></button>
         </div>
     </div>
     <div id="quiz-container"></div>

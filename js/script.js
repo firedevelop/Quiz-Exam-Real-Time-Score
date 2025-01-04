@@ -343,7 +343,7 @@ function saveQuizResults(resultData) {
 }
 
 function updateTimestampDropdown() {
-    timestampSelect.innerHTML = '<option value="">Select Timestamp</option>'; // Clear existing options
+    timestampSelect.innerHTML = '<option value="">History</option>'; // Clear existing options
       const selectedQuiz = subjectSelect.value;
 
      if (currentQuizResults && currentQuizResults[selectedQuiz]) {
