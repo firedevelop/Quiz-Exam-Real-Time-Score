@@ -19,6 +19,8 @@ const checkCorrectsButton = document.getElementById('check-corrects');
 const checkCorrectsSimplyButton = document.getElementById('check-corrects-simply');
 const timestampSelect = document.getElementById('timestamp-select');
 const filterTimestampButton = document.getElementById('filter-timestamp');
+const filterAllIncorrectButton = document.getElementById('filter-all-incorrect');
+const cleanFileStoreButton = document.getElementById('clean-filestore');
 
 let questionsAnswered = 0;
 let correctAnswers = 0;
@@ -56,6 +58,8 @@ filterAllButton.addEventListener('click', () => filterQuestions('all'));
 checkCorrectsButton.addEventListener('click', () => checkAllCorrectAnswers(false));
 checkCorrectsSimplyButton.addEventListener('click', () => checkAllCorrectAnswers(true));
 filterTimestampButton.addEventListener('click', () => filterQuestionsByTimestamp());
+filterAllIncorrectButton.addEventListener('click', () => filterAllIncorrect());
+cleanFileStoreButton.addEventListener('click', () => cleanFileStore());
 
 
 async function loadQuestions(subject) {
@@ -386,6 +390,37 @@ function filterQuestionsByTimestamp() {
              questionDiv.style.display = 'none';
            }
      });
+}
+function filterAllIncorrect() {
+  const selectedQuiz = subjectSelect.value;
+  const allQuestionDivs = document.querySelectorAll('#quiz-container > div');
+    allQuestionDivs.forEach((questionDiv, index) => {
+         const question = currentQuestions[index];
+          let isIncorrect = false;
+
+       if (currentQuizResults[selectedQuiz]) {
+           currentQuizResults[selectedQuiz].forEach((result) => {
+                if (result.answers && result.answers[index] !== null && result.answers[index] !== question.answer) {
+                    isIncorrect = true;
+                }
+             });
+         }
+
+        if (isIncorrect) {
+              questionDiv.style.display = 'block';
+        } else {
+             questionDiv.style.display = 'none';
+        }
+     });
+}
+
+function cleanFileStore() {
+    if (confirm("Are you sure you want to clear the file store?")) {
+        localStorage.removeItem('quizResults');
+        currentQuizResults = {};
+        updateTimestampDropdown();
+        alert('File store cleared!');
+    }
 }
 
 
