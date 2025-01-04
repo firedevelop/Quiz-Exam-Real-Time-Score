@@ -49,6 +49,7 @@ gpg --decrypt questions-programacion-b.js.gpg > questions-programacion-b.js
 gpg --decrypt questions-formacion-y-orientacion-laboral.js.gpg > questions-formacion-y-orientacion-laboral.js
 gpg --decrypt questions-entornos-de-desarrollo.js.gpg > questions-entornos-de-desarrollo.js
 gpg --decrypt questions-bases-de-datos-b.js.gpg > questions-bases-de-datos-b.js
+gpg --decrypt questions-bases-de-datos-b.js.gpg > questions-lenguajes-de-marcas.js
 
 # GPG GitHub ignore
 Now you can save the exams of sensitive files encrypted in a public GitHub repository but keep running these files running in your localhost Decrypted.
@@ -61,6 +62,7 @@ js/questions-bases-de-datos-b.js
 js/questions-entornos-de-desarrollo.js
 js/questions-formacion-y-orientacion-laboral.js
 js/questions-programacion-b.js
+js/questions-lenguajes-de-marcas.js
 
 
 

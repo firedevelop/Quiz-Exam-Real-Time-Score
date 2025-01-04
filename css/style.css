@@ -213,3 +213,19 @@ button:hover {
         position: relative;
         z-index: 100;
     }
+    #timestamp-filter {
+    display: flex;
+    align-items: center;
+}
+
+#timestamp-select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
+}
+
+#filter-timestamp {
+    margin-top: 0; /* Remove default button margin */
+    display: inline-block;
+}

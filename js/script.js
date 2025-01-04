@@ -1,6 +1,6 @@
 import { questions } from './questions.js';
-const subjectSelect = document.getElementById('subject-select');
 
+const subjectSelect = document.getElementById('subject-select');
 const quizContainer = document.getElementById('quiz-container');
 const submitButton = document.getElementById('submit-quiz');
 const resultDiv = document.getElementById('result');
@@ -17,14 +17,19 @@ const emptyCountSpan = document.getElementById('empty-count');
 const allCountSpan = document.getElementById('all-count');
 const checkCorrectsButton = document.getElementById('check-corrects');
 const checkCorrectsSimplyButton = document.getElementById('check-corrects-simply');
+const timestampSelect = document.getElementById('timestamp-select');
+const filterTimestampButton = document.getElementById('filter-timestamp');
 
 let questionsAnswered = 0;
 let correctAnswers = 0;
 let userAnswers = [];
 let showExplanations = false;
 let alwaysShowExplanations = false;
-
 let currentQuestions = questions; // set initial questions
+let currentQuizResults = {}; // Store quiz results from localStorage, each quiz has its own key
+
+// Load quiz results from localStorage on page load
+loadQuizResultsFromStorage();
 
 showExplanationsCheckbox.addEventListener('change', (event) => {
     showExplanations = event.target.checked;
@@ -36,20 +41,22 @@ alwaysShowExplanationsCheckbox.addEventListener('change', (event) => {
     updateExplanationsVisibility();
 });
 
-
 subjectSelect.addEventListener('change', async (event) => {
     const selectedSubject = event.target.value;
     console.log("selected subject: ", selectedSubject)
      await loadQuestions(selectedSubject);
     resetQuiz();
     buildQuiz();
+    updateTimestampDropdown();
 });
 filterCorrectButton.addEventListener('click', () => filterQuestions('correct'));
 filterIncorrectButton.addEventListener('click', () => filterQuestions('incorrect'));
 filterEmptyButton.addEventListener('click', () => filterQuestions('empty'));
 filterAllButton.addEventListener('click', () => filterQuestions('all'));
 checkCorrectsButton.addEventListener('click', () => checkAllCorrectAnswers(false));
- checkCorrectsSimplyButton.addEventListener('click', () => checkAllCorrectAnswers(true));
+checkCorrectsSimplyButton.addEventListener('click', () => checkAllCorrectAnswers(true));
+filterTimestampButton.addEventListener('click', () => filterQuestionsByTimestamp());
+
 
 async function loadQuestions(subject) {
     try {
@@ -179,26 +186,26 @@ function updateExplanationsVisibility() {
         }
     });
 }
- function resetQuiz() {
+
+function resetQuiz() {
     questionsAnswered = 0;
-      correctAnswers = 0;
-      quizContainer.innerHTML = ''; // Clear previous questions
-      userAnswers = new Array(currentQuestions.length).fill(null);
+    correctAnswers = 0;
+    quizContainer.innerHTML = ''; // Clear previous questions
+    userAnswers = new Array(currentQuestions.length).fill(null);
     const scoreDisplay = document.getElementById('score-display');
        if(scoreDisplay){
         scoreDisplay.innerHTML = ``;
          }
 
      updateScoreDisplay();
- }
-
+}
 
 function updateScoreDisplay() {
     const scoreDisplay = document.getElementById('score-display');
-     const correctCountSpan = document.getElementById('correct-count');
-        const incorrectCountSpan = document.getElementById('incorrect-count');
-         const emptyCountSpan = document.getElementById('empty-count');
-         const allCountSpan = document.getElementById('all-count');
+    const correctCountSpan = document.getElementById('correct-count');
+      const incorrectCountSpan = document.getElementById('incorrect-count');
+       const emptyCountSpan = document.getElementById('empty-count');
+       const allCountSpan = document.getElementById('all-count');
 
     const incorrectAnswers = questionsAnswered - correctAnswers;
     const emptyAnswers = currentQuestions.length - questionsAnswered;
@@ -219,7 +226,6 @@ function updateScoreDisplay() {
          }
 
 }
-
 
  function filterQuestions(filterType) {
      const allQuestionDivs = document.querySelectorAll('#quiz-container > div');
@@ -250,6 +256,8 @@ function updateScoreDisplay() {
          }
      });
  }
+
+
 function checkAllCorrectAnswers(simply) {
     const allQuestionDivs = document.querySelectorAll('#quiz-container > div');
     allQuestionDivs.forEach((questionDiv, index) => {
@@ -271,20 +279,115 @@ function checkAllCorrectAnswers(simply) {
 
 function showResults() {
     let correctAnswers = 0;
+    const answers = [];
+
     currentQuestions.forEach((question, index) => {
         const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
-
-        if (selectedOption) {
+          if (selectedOption) {
             const selectedAnswer = parseInt(selectedOption.value);
+            answers.push(selectedAnswer);
             if (selectedAnswer === question.answer) {
                 correctAnswers++;
             }
-        }
+        } else {
+           answers.push(null)
+         }
     });
 
     const incorrectAnswers = currentQuestions.length - correctAnswers;
     resultDiv.innerHTML = `You got <span class='correct-text'>${correctAnswers} correct</span> and <span class='incorrect-text'>${incorrectAnswers} incorrect</span>`;
+
+       // Save the quiz result
+        const resultData = {
+           id: Date.now(), // You might want a more robust ID generation
+            quiz: subjectSelect.value, // Use selected subject as the quiz name
+           timeStamp: new Date().toISOString(),
+           correct: correctAnswers,
+           incorrect: currentQuestions.length - incorrectAnswers,
+           answers: answers
+       };
+       saveQuizResults(resultData);
+        updateTimestampDropdown();
+
 }
 
- buildQuiz(); // Build the initial quiz
+function loadQuizResultsFromStorage() {
+     try {
+          const storedResults = localStorage.getItem('quizResults');
+          if (storedResults) {
+              currentQuizResults = JSON.parse(storedResults);
+               updateTimestampDropdown();
+          }
+      } catch (error) {
+          console.error('Failed to load quiz results from storage:', error);
+          currentQuizResults = {};
+      }
+}
+
+
+function saveQuizResults(resultData) {
+     const quizName = resultData.quiz;
+    if (!currentQuizResults[quizName]) {
+        currentQuizResults[quizName] = [];
+    }
+    currentQuizResults[quizName].push(resultData);
+   try {
+        localStorage.setItem('quizResults', JSON.stringify(currentQuizResults));
+    } catch (error) {
+        console.error('Failed to save quiz results to storage:', error);
+    }
+}
+
+function updateTimestampDropdown() {
+    timestampSelect.innerHTML = '<option value="">Select Timestamp</option>'; // Clear existing options
+      const selectedQuiz = subjectSelect.value;
+
+     if (currentQuizResults && currentQuizResults[selectedQuiz]) {
+         currentQuizResults[selectedQuiz].forEach(result => {
+            const option = document.createElement('option');
+            option.value = result.timeStamp;
+              option.textContent = `${new Date(result.timeStamp).toLocaleString()} - ${result.quiz}`;
+            timestampSelect.appendChild(option);
+        });
+    }
+}
+
+
+function filterQuestionsByTimestamp() {
+    const selectedTimestamp = timestampSelect.value;
+    const selectedQuiz = subjectSelect.value;
+
+    if (!selectedTimestamp) {
+        alert('Please select a timestamp to filter.');
+        return;
+    }
+
+    if (!currentQuizResults[selectedQuiz]) {
+        alert('Selected quiz not found');
+        return;
+    }
+
+    const selectedResult = currentQuizResults[selectedQuiz].find(result => result.timeStamp === selectedTimestamp);
+
+    if (!selectedResult) {
+        alert('Selected timestamp not found');
+        return;
+    }
+
+    const allQuestionDivs = document.querySelectorAll('#quiz-container > div');
+     allQuestionDivs.forEach((questionDiv, index) => {
+        const question = currentQuestions[index];
+        const savedAnswer = selectedResult.answers[index];
+
+         // Check if there are any incorrect results for that quiz in the given timestamp
+          if (savedAnswer !== null && savedAnswer !== question.answer) {
+             questionDiv.style.display = 'block';
+           } else {
+             questionDiv.style.display = 'none';
+           }
+     });
+}
+
+
+buildQuiz(); // Build the initial quiz
 submitButton.addEventListener('click', showResults);

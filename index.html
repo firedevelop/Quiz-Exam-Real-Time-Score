@@ -15,7 +15,7 @@
 <body>
     <script src="prism.js"></script>
     <div id="controls">
-        
+
         <div>
             <label for="subject-select"><h2><span class="material-symbols-outlined">
                 list_alt_check
@@ -24,7 +24,7 @@
                 <option value="questions">Java</option>
                 <option value="questions-javascript">Javascript</option>
                 <option value="questions-react">React</option>
-                <option value="questions-formacion-y-orientacion-laboral">(encrypted) Formación Orientación Laboral</option>
+                 <option value="questions-formacion-y-orientacion-laboral">(encrypted) Formación Orientación Laboral</option>
                 <option value="questions-bases-de-datos-b">(encrypted) Bases de datos B</option>
                 <option value="questions-programacion-b">(encrypted) Programación B</option>
                 <option value="questions-entornos-de-desarrollo">(encrypted) Entornos de desarrollo</option>
@@ -57,6 +57,10 @@
                 <span>All Corrects only</span>
             </button>
         </div>
+        <div id="timestamp-filter">
+          <select id="timestamp-select"></select>
+           <button id="filter-timestamp">Filter by Timestamp</button>
+       </div>
     </div>
     <div id="quiz-container"></div>
     <button id="submit-quiz">Submit Quiz</button>
