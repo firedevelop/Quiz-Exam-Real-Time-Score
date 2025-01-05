@@ -11,6 +11,13 @@
 
 # Quiz Exam Real Time Score
 Quiz Exam preparation. Allow some text explanation to help. Green green or red color if correct/wrong answer in a realtime js before submit form. Keep the Score in realtime.
+- [x] Add your custom Quiz Exam
+- [x] Keep the incorrect questions with timeStamp
+- [x] Try again only with incorrect quiz
+- [x] Try again only with all incorrect quiz
+- [x] Show / hide explanation or extra help of each question
+- [x] No database needed, works with FileStorage
+- [x] No server config needed, works on localhost or free online solutions like vercel, netlify,...
 
 # GPG Encripted Description Method
 This method allow:
