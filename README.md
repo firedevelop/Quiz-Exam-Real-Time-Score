@@ -1,8 +1,10 @@
-![Image Alt text](/images/00.png)
+![Image Alt text](/images/0000.png)
 ## Real time result score
-![Image Alt text](/images/01.png)
+![Image Alt text](/images/0001.png)
 # add your custom quiz exam
-![Image Alt text](/images/02.png)
+![Image Alt text](/images/0002.png)
+# add your custom images
+![Image Alt text](/images/0003.png)
 
 # See live the project
 - OnLine: https://quiz-exam-real-time-score.netlify.app/
@@ -16,6 +18,7 @@ Quiz Exam preparation. Allow some text explanation to help. Green green or red c
 - [x] Try again only with incorrect quiz
 - [x] Try again only with all incorrect quiz
 - [x] Show / hide explanation or extra help of each question
+- [x] Show / hide explanation images
 - [x] No database needed, works with FileStorage
 - [x] No server config needed, works on localhost or free online solutions like vercel, netlify,...
 
@@ -71,6 +74,13 @@ js/questions-formacion-y-orientacion-laboral.js
 js/questions-programacion-b.js
 js/questions-lenguajes-de-marcas.js
 
+# Add images
+In the explanation you can add images in order to help the estudents or show image code.
+The images are located on ```/images``` folder.
+Add the new key/value on your ```js/question.js``` file like: 
+```
+image:["images/java/0001.png", "images/java/0002.png"]
+```
 
 
 
