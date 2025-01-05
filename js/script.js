@@ -424,5 +424,6 @@ function cleanFileStore() {
 }
 
 
+
 buildQuiz(); // Build the initial quiz
 submitButton.addEventListener('click', showResults);
