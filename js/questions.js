@@ -4,6 +4,7 @@ export const questions = [
     options: ["const", "static", "final", "immutable"],
     answer: 2,
     explanation: "The `final` keyword is used to declare a constant in Java, meaning its value cannot be changed after initialization.",
+    image:["images/java/0001.png", "images/java/0002.png"],
   },
   {
     question: "2. Which of the following is NOT a primitive data type in Java?",

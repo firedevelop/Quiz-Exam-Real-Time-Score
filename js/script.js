@@ -27,6 +27,7 @@ let correctAnswers = 0;
 let userAnswers = [];
 let showExplanations = false;
 let alwaysShowExplanations = false;
+
 let currentQuestions = questions; // set initial questions
 let currentQuizResults = {}; // Store quiz results from localStorage, each quiz has its own key
 
@@ -76,7 +77,6 @@ async function loadQuestions(subject) {
         currentQuestions = [];
     }
 }
-
 
 function buildQuiz() {
       const scoreDisplay = document.getElementById('score-display');
@@ -162,18 +162,37 @@ function checkAnswer(questionIndex, selectedOption) {
         questionDiv.classList.add('incorrect');
         questionDiv.classList.remove('correct');
         explanationDiv.style.display = alwaysShowExplanations ? 'block' : (showExplanations ? 'block' : 'none');
-        setExplanationText(explanationDiv, currentQuestions[questionIndex]);
+       setExplanationText(explanationDiv, currentQuestions[questionIndex]);
     }
     updateExplanationsVisibility();
     updateScoreDisplay();
+    saveQuizResults();
 }
 
 function setExplanationText(explanationDiv, question) {
     const explanationText = question.explanation || "No explanation provided";
-        let formattedExplanation = explanationText.replace(/`{3}java\n([\s\S]*?)`{3}/gs, (match, code) => {
-             return `<pre><code>${code.trim()}</code></pre>`;
-        });
-     explanationDiv.innerHTML = `<p>Explanation: ${formattedExplanation}</p>`;
+      let formattedExplanation = explanationText.replace(/`{3}java\n([\s\S]*?)`{3}/gs, (match, code) => {
+        return `<pre><code>${code.trim()}</code></pre>`;
+      });
+      if (question.image) {
+           let imagesHTML = '';
+           if (Array.isArray(question.image)){
+                question.image.forEach(imageUrl => {
+                  imagesHTML += `<div class="image-tooltip">
+                                 <img src="${imageUrl}" alt="Explanation Image" >
+                                  <span class="image-tooltip-text">Image Explanation.</span>
+                                   </div>`;
+                  });
+           } else{
+               imagesHTML = `<div class="image-tooltip">
+                            <img src="${question.image}" alt="Explanation Image" >
+                           <span class="image-tooltip-text">Image Explanation.</span>
+                            </div>`;
+
+           }
+      formattedExplanation += imagesHTML
+     }
+  explanationDiv.innerHTML = `<p>Explanation: ${formattedExplanation}</p>`;
 }
 
 function updateExplanationsVisibility() {
@@ -190,43 +209,35 @@ function updateExplanationsVisibility() {
         }
     });
 }
-
-function resetQuiz() {
+ function resetQuiz() {
     questionsAnswered = 0;
-    correctAnswers = 0;
-    quizContainer.innerHTML = ''; // Clear previous questions
-    userAnswers = new Array(currentQuestions.length).fill(null);
+      correctAnswers = 0;
+      quizContainer.innerHTML = ''; // Clear previous questions
+      userAnswers = new Array(currentQuestions.length).fill(null);
     const scoreDisplay = document.getElementById('score-display');
        if(scoreDisplay){
         scoreDisplay.innerHTML = ``;
          }
-
      updateScoreDisplay();
-}
+ }
 
 function updateScoreDisplay() {
-    const scoreDisplay = document.getElementById('score-display');
-    const correctCountSpan = document.getElementById('correct-count');
-      const incorrectCountSpan = document.getElementById('incorrect-count');
-       const emptyCountSpan = document.getElementById('empty-count');
-       const allCountSpan = document.getElementById('all-count');
-
     const incorrectAnswers = questionsAnswered - correctAnswers;
     const emptyAnswers = currentQuestions.length - questionsAnswered;
     if (correctCountSpan) {
-          correctCountSpan.textContent = correctAnswers;
-        }
-        if (incorrectCountSpan) {
-          incorrectCountSpan.textContent = incorrectAnswers;
-        }
-       if (emptyCountSpan) {
-        emptyCountSpan.textContent = emptyAnswers;
+        correctCountSpan.textContent = correctAnswers;
+    }
+    if (incorrectCountSpan) {
+      incorrectCountSpan.textContent = incorrectAnswers;
+    }
+     if (emptyCountSpan) {
+      emptyCountSpan.textContent = emptyAnswers;
+    }
+      if (allCountSpan) {
+        allCountSpan.textContent = currentQuestions.length;
       }
-        if (allCountSpan) {
-          allCountSpan.textContent = currentQuestions.length;
-        }
-         if(scoreDisplay){
-            scoreDisplay.innerHTML = ``;
+       if(scoreDisplay){
+          scoreDisplay.innerHTML = ``;
          }
 
 }
@@ -260,7 +271,6 @@ function updateScoreDisplay() {
          }
      });
  }
-
 
 function checkAllCorrectAnswers(simply) {
     const allQuestionDivs = document.querySelectorAll('#quiz-container > div');
@@ -328,7 +338,6 @@ function loadQuizResultsFromStorage() {
       }
 }
 
-
 function saveQuizResults(resultData) {
      const quizName = resultData.quiz;
     if (!currentQuizResults[quizName]) {
@@ -355,7 +364,6 @@ function updateTimestampDropdown() {
         });
     }
 }
-
 
 function filterQuestionsByTimestamp() {
     const selectedTimestamp = timestampSelect.value;
@@ -414,7 +422,7 @@ function filterAllIncorrect() {
      });
 }
 
-function cleanFileStore() {
+ function cleanFileStore() {
     if (confirm("Are you sure you want to clear the file store?")) {
         localStorage.removeItem('quizResults');
         currentQuizResults = {};
@@ -423,6 +431,10 @@ function cleanFileStore() {
     }
 }
 
-
-buildQuiz(); // Build the initial quiz
+  async function init(){
+      await loadQuestions("questions"); // Load initial questions
+     buildQuiz()
+      updateTimestampDropdown();
+  }
+  init()
 submitButton.addEventListener('click', showResults);
