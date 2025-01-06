@@ -1,9 +1,9 @@
 ![Image Alt text](/images/0000.png)
 ## Real time result score
 ![Image Alt text](/images/0001.png)
-# add your custom quiz exam
+## add your custom quiz exam
 ![Image Alt text](/images/0002.png)
-# add your custom images
+## add your custom images
 ![Image Alt text](/images/0003.png)
 
 # See live the project
@@ -41,9 +41,12 @@ https://gpg4win.org/
 gpg --symmetric --cipher-algo AES256 my_name_file.js
 
 Example:
-gpg --symmetric --cipher-algo AES256 questions-programacion-b.js
 gpg --symmetric --cipher-algo AES256 questions-bases-de-datos-b.js
+gpg --symmetric --cipher-algo AES256 questions-entornos-de-desarrollo.js
+gpg --symmetric --cipher-algo AES256 questions-programacion-b.js
+gpg --symmetric --cipher-algo AES256 questions-formacion-y-orientacion-laboral.js
 gpg --symmetric --cipher-algo AES256 questions-lenguajes-de-marcas.js
+
 
 ### GPG password 
 save your password in your keepass. The output file will be like:

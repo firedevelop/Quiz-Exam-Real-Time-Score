@@ -1,4 +1,5 @@
 import { questions } from './questions.js';
+import { sortOrderbyConcept } from './sortOrder.js';
 
 const subjectSelect = document.getElementById('subject-select');
 const quizContainer = document.getElementById('quiz-container');
@@ -21,6 +22,8 @@ const timestampSelect = document.getElementById('timestamp-select');
 const filterTimestampButton = document.getElementById('filter-timestamp');
 const filterAllIncorrectButton = document.getElementById('filter-all-incorrect');
 const cleanFileStoreButton = document.getElementById('clean-filestore');
+const sortByConceptButton =  document.getElementById('sort-by-concept'); //  sort by concept button
+const sortByIdButton = document.getElementById('sort-by-id'); // New sort by id button
 
 let questionsAnswered = 0;
 let correctAnswers = 0;
@@ -62,6 +65,10 @@ filterTimestampButton.addEventListener('click', () => filterQuestionsByTimestamp
 filterAllIncorrectButton.addEventListener('click', () => filterAllIncorrect());
 cleanFileStoreButton.addEventListener('click', () => cleanFileStore());
 
+// add button to the control area
+sortByConceptButton.addEventListener('click', sortByConcept);
+
+sortByIdButton.addEventListener('click', sortById);
 
 async function loadQuestions(subject) {
     try {
@@ -430,6 +437,30 @@ function filterAllIncorrect() {
         alert('File store cleared!');
     }
 }
+function sortByConcept() {
+    const selectedSubject = subjectSelect.value;
+      const sortOrder = sortOrderbyConcept[selectedSubject];
+      if (!sortOrder) return
+         
+       currentQuestions.sort((a, b) => {
+            const indexA =  sortOrder.indexOf(a.id);
+            const indexB = sortOrder.indexOf(b.id);
+          
+            if (indexA === -1 && indexB !== -1) return 1;
+            if (indexA !== -1 && indexB === -1) return -1;
+
+            return indexA - indexB;
+    });
+    resetQuiz();
+    buildQuiz();
+}
+
+function sortById() {
+    currentQuestions.sort((a, b) => a.id - b.id);
+    resetQuiz();
+    buildQuiz();
+}
+
 
   async function init(){
       await loadQuestions("questions"); // Load initial questions
