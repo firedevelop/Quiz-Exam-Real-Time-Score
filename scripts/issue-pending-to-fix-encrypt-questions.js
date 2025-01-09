@@ -1,5 +1,6 @@
+// issue works on local, stop to work on localhost becasu netigly doesnt get node.js package
 // encrypt-questions.js
-import { secretKey } from './config.js';
+import { secretKey } from '../config.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
