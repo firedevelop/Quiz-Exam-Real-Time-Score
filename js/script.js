@@ -1,6 +1,5 @@
 import { questions } from './questions.js';
 import { sortOrderbyConcept } from './sortOrder.js';
-import { secretKey } from '../config.js'; // Import the secretKey
 
 const subjectSelect = document.getElementById('subject-select');
 const quizContainer = document.getElementById('quiz-container');
@@ -36,21 +35,6 @@ let alwaysShowExplanations = false;
 
 let currentQuestions = questions; // set initial questions
 let currentQuizResults = {}; // Store quiz results from localStorage, each quiz has its own key
-const ENCRYPTED_PREFIX = '(encrypted)';
-const ENCRYPTED_FILES = [
-    'questions-bases-de-datos-b',
-    'questions-entornos-de-desarrollo',
-    'questions-formacion-y-orientacion-laboral',
-    'questions-programacion-b',
-     'questions-lenguajes-de-marcas'
-];
-let password = null;
-const passwordInput = document.createElement('input');
-passwordInput.type = 'password';
-passwordInput.placeholder = 'Enter password';
-passwordInput.style.display = 'none';
-subjectSelect.parentElement.insertBefore(passwordInput, subjectSelect.nextSibling);
-
 
 // Load quiz results from localStorage on page load
 loadQuizResultsFromStorage();
@@ -68,27 +52,10 @@ alwaysShowExplanationsCheckbox.addEventListener('change', (event) => {
 subjectSelect.addEventListener('change', async (event) => {
     const selectedSubject = event.target.value;
     console.log("selected subject: ", selectedSubject)
-    //If selected subject needs password
-    if(ENCRYPTED_FILES.includes(selectedSubject.replace(ENCRYPTED_PREFIX, '').trim())){
-        passwordInput.style.display = 'inline-block';
-         passwordInput.focus();
-        passwordInput.onchange = async () => {
-            password = passwordInput.value;
-              await loadQuestions(selectedSubject);
-             resetQuiz();
-             buildQuiz();
-             updateTimestampDropdown();
-             passwordInput.value = '';
-             passwordInput.style.display = 'none';
-        }
-    } else{
-         password = null;
-        passwordInput.style.display = 'none';
-         await loadQuestions(selectedSubject);
-        resetQuiz();
-        buildQuiz();
-        updateTimestampDropdown();
-    }
+     await loadQuestions(selectedSubject);
+    resetQuiz();
+    buildQuiz();
+    updateTimestampDropdown();
 });
 filterCorrectButton.addEventListener('click', () => filterQuestions('correct'));
 filterIncorrectButton.addEventListener('click', () => filterQuestions('incorrect'));
@@ -108,19 +75,7 @@ sortByRandomButton.addEventListener('click', sortByRandom);
 async function loadQuestions(subject) {
     try {
          const currentDir = import.meta.url.substring(0, import.meta.url.lastIndexOf('/'))
-         let module;
-         if(ENCRYPTED_FILES.includes(subject.replace(ENCRYPTED_PREFIX, '').trim())){
-            const encryptedModule = await import(`${currentDir}/${subject.replace(ENCRYPTED_PREFIX, '').trim()}.js`);
-              if(!password){
-                    alert('Please introduce password')
-                   return;
-                }
-             const decryptedQuestions = decrypt(encryptedModule.questions, password)
-              module = {questions: decryptedQuestions};
-
-        }else {
-            module = await import(`${currentDir}/${subject}.js`);
-        }
+          const module = await import(`${currentDir}/${subject}.js`);
         currentQuestions = module.questions;
         userAnswers = new Array(currentQuestions.length).fill(null);
        updateScoreDisplay()
@@ -512,36 +467,7 @@ function sortByRandom() {
     resetQuiz();
     buildQuiz();
 }
-function decrypt(questions, key) {
-    if (!key) return questions
-   try {
-    const decrypted = questions.map(question => {
-        const decryptedQuestion = {};
-          for (const key in question) {
-               if(typeof question[key] === 'string'){
-                  decryptedQuestion[key] = xorCipher(question[key], key)
-               }else if (Array.isArray(question[key])) {
-                    decryptedQuestion[key] = question[key].map(item => typeof item === 'string' ? xorCipher(item, key) : item);
-               } else{
-                   decryptedQuestion[key] = question[key];
-               }
-           }
-            return decryptedQuestion;
-        });
-         return decrypted
-    } catch (error) {
-       console.error('Decryption error:', error)
-      return questions
-    }
 
-}
-function xorCipher(str, key) {
-    let result = '';
-    for (let i = 0; i < str.length; i++) {
-      result += String.fromCharCode(str.charCodeAt(i) ^ key.charCodeAt(i % key.length));
-    }
-    return result;
-}
 
 
   async function init(){
