@@ -22,7 +22,7 @@ Quiz Exam preparation. Allow some text explanation to help. Green green or red c
 - [x] No database needed, works with FileStorage
 - [x] No server config needed, works on localhost or free online solutions like vercel, netlify,...
 
-# GPG Encripted Description Method
+# GPG Encripted Description - Method 1
 This method allow:
 - Use a public repository
 - keep encripted the exam files
@@ -64,7 +64,7 @@ gpg --decrypt questions-entornos-de-desarrollo.js.gpg > questions-entornos-de-de
 gpg --decrypt questions-bases-de-datos-b.js.gpg > questions-bases-de-datos-b.js
 gpg --decrypt questions-bases-de-datos-b.js.gpg > questions-lenguajes-de-marcas.js
 
-# GPG GitHub ignore
+## GPG GitHub ignore
 Now you can save the exams of sensitive files encrypted in a public GitHub repository but keep running these files running in your localhost Decrypted.
 
 ### Add GitHub ignore files, create on root repository folder the file:
@@ -85,9 +85,59 @@ Add the new key/value on your ```js/question.js``` file like:
 image:["images/java/0001.png", "images/java/0002.png"]
 ```
 
+# XOR Encripted Description - Method 2
+## Encryption and Decryption of Quiz Question Files
 
+This project uses a basic XOR cipher for encrypting quiz question files to prevent casual inspection of their content in the public repository. This section describes how to encrypt and decrypt the question files using Node.js.
 
+### Prerequisites
 
+Before you begin, ensure that you have the following installed on your system:
+
+-   **Node.js:** You can download and install Node.js from [https://nodejs.org/](https://nodejs.org/).
+
+### Encryption Process
+
+The `encrypt-questions.js` script encrypts the question files, overwriting their original content and saving a copy of the original files with a `-original` suffix.
+
+1.  **Set Up your Secret Key:**
+    - In your project's root, you will find a file named `config.js`, this file contains the `secretKey` used to encrypt and decrypt your files.
+    - Make sure to add `config.js` in the `.gitignore` file to not publish your key on a public repository.
+
+2. **Install dependencies:**
+    - Open your terminal in the root project folder.
+    - Execute `npm install` this will install all the project dependencies.
+
+3.  **Run the Encryption Script:**
+
+    -   Open your terminal or command prompt.
+    -   Navigate to the project's root directory where your `encrypt-questions.js` file is located.
+    -   Execute the following command:
+
+        ```bash
+        node encrypt-questions.js
+        ```
+
+    - This command will:
+        *   Read all the `js/questions-*.js` files.
+        *   Create a copy of your original files with a `-original` suffix in the same folder.
+        *   Encrypt the original question files and saves them with a new encrypted content.
+        *   Output confirmation messages to the console.
+
+4.  **Important:** After this step, your question files (`js/questions-*.js`) will contain encrypted text, and a copy of the original files will be created with a `-original` suffix.
+
+### Decryption Process
+
+The decryption process happens automatically inside the application:
+
+1.  When a user selects a quiz, if the selected quiz is marked as encrypted, the application will show a password input.
+2.  If the user enters the correct password (the same password used to encrypt the files) the questions file will be decrypted using the `decrypt` method on `script.js` and rendered in the user interface.
+
+**Important Notes:**
+
+-   The encryption process will overwrite the original content of your question files.
+-   The encryption method used in this project is very basic and is intended only for obfuscation, and not for real security.
+-   The `config.js` file must be added to the `.gitignore` to not commit this file on a public repository.
 
 
 
