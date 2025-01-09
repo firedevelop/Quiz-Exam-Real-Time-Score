@@ -48,5 +48,5 @@ def clean_js_questions(file_path):
     print("JavaScript file cleaned successfully! Output saved as 'cleaned_questions.js'.")
 
 # Usage
-file_path = 'questions-entornos-de-desarrollo.js'  # Replace with your file path
+file_path = 'questions-lenguajes-de-marcas-original.js'  # Replace with your file path
 clean_js_questions(file_path)

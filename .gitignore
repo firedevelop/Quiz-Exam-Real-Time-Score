@@ -1,7 +1,8 @@
-js/questions-bases-de-datos-b.js
-js/questions-entornos-de-desarrollo.js
-js/questions-formacion-y-orientacion-laboral.js
-js/questions-programacion-b.js
-js/questions-lenguajes-de-marcas.js
-images/private/*
+js/questions-bases-de-datos-b-original.js
+js/questions-entornos-de-desarrollo-original.js
+js/questions-formacion-y-orientacion-laboral-original.js
+js/questions-programacion-b-original.js
+js/questions-lenguajes-de-marcas-original.js
+images/private-originals/*
 scripts/questions-encrypt.sh
+config.js
