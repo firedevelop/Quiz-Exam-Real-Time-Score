@@ -24,6 +24,8 @@ const filterAllIncorrectButton = document.getElementById('filter-all-incorrect')
 const cleanFileStoreButton = document.getElementById('clean-filestore');
 const sortByConceptButton =  document.getElementById('sort-by-concept'); //  sort by concept button
 const sortByIdButton = document.getElementById('sort-by-id'); // New sort by id button
+const sortByRandomButton = document.getElementById('sort-by-random'); // New sort by random button
+
 
 let questionsAnswered = 0;
 let correctAnswers = 0;
@@ -67,8 +69,8 @@ cleanFileStoreButton.addEventListener('click', () => cleanFileStore());
 
 // add button to the control area
 sortByConceptButton.addEventListener('click', sortByConcept);
-
 sortByIdButton.addEventListener('click', sortById);
+sortByRandomButton.addEventListener('click', sortByRandom);
 
 async function loadQuestions(subject) {
     try {
@@ -460,6 +462,12 @@ function sortById() {
     resetQuiz();
     buildQuiz();
 }
+function sortByRandom() {
+     currentQuestions.sort(() => Math.random() - 0.5);
+    resetQuiz();
+    buildQuiz();
+}
+
 
 
   async function init(){
