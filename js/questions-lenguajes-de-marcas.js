@@ -22,11 +22,10 @@ export const questions = [
     },
     {   
         id: 4,
-        question: "4: ¿Qué nombre falta en la etiqueta p1?",
+        question: "4: ¿Qué nombre falta en la etiqueta p1?\n<profesor>\n  <nombre> Roberto </nombre>\n  <apellido> Nadal <p1>\n</profesor>",
         options: ["/nombre", "/apellido", "apellido", "nombre"],
-        answer: 1,
-        explanation: "a) /apellido.",
-        image: ["images/private-originals/lenguajes-de-marcas/0015.png"]
+        answer: 0,
+        explanation: "a) /apellido."
     },
     {
         id: 5,
